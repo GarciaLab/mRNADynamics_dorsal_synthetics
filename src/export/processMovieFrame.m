@@ -1,0 +1,19 @@
+function processMovieFrame(nFrames, Prefix, OutputFolder, movieImages, framesIndex,...
+  seriesIndex, NChannels, NSlices,  Channels, ProjectionType,...
+   ReferenceHist, zslicesPadding, lowbit)
+  
+for channelIndex = 1:NChannels
+    processMovieChannel(channelIndex, nFrames, Prefix, OutputFolder,...
+      movieImages, framesIndex, seriesIndex, NChannels, NSlices,...
+       zslicesPadding, lowbit);
+end
+  
+  %Now copy nuclear tracking images
+    Projection = generateNuclearChannel(nFrames, movieImages,...
+        framesIndex, seriesIndex, NSlices, NChannels,ProjectionType,...
+         Channels, ReferenceHist, OutputFolder, Prefix);
+     
+    imwrite(Projection, [OutputFolder, filesep, Prefix, '-His_', iIndex(nFrames, 3), '.tif']);
+
+  
+end
